@@ -1,0 +1,17 @@
+POST http://localhost:3001/auth/user-registration
+Content-Type: application/json
+
+{
+    "email":"claude.oduori@gmail.com",
+    "password":"Claude12"
+}
+
+###
+
+POST http://localhost:3001/auth/login
+Content-Type: application/json
+
+{
+    "email":"claude.oduori@gmail.com",
+    "password":"Claude12"
+}
