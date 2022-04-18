@@ -6,9 +6,10 @@ describe("Create access and refresh tokens", () => {
       roles: ["ORDINARY MEMBER", "ADMIN", "TREASURER"],
     };
     const tokens = createTokens(payload);
-    //expect tokens to be an array
-    //expect tokens to have exactly 2 items
-    //expect the items to be strings
+    expect(tokens).toBeInstanceOf(Array);
+    expect(tokens).toHaveLength(2);
+    expect(typeof tokens[0]).toBe("string");
+    expect(typeof tokens[1]).toBe("string");
   });
 });
 describe("Password validation", () => {
