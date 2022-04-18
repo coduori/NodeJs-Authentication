@@ -1,12 +1,11 @@
-import {
-  createTokens,
-  validatePassword,
-  invalidUsernameOrPassword,
-} from "../login.js";
+import { createTokens, validatePassword } from "../login.js";
 describe("Create access and refresh tokens", () => {
   test("return access and refresh token", () => {
-    const roles = ["ORDINARY MEMBER", "ADMIN", "TREASURER"];
-    const tokens = createTokens(roles);
+    const payload = {
+      sub: "test test",
+      roles: ["ORDINARY MEMBER", "ADMIN", "TREASURER"],
+    };
+    const tokens = createTokens(payload);
     //expect tokens to be an array
     //expect tokens to have exactly 2 items
     //expect the items to be strings
@@ -15,7 +14,9 @@ describe("Create access and refresh tokens", () => {
 describe("Password validation", () => {
   test("matching passwords", done => {
     const password = "E3xv8>.1";
-    const isValidPassword = validatePassword(password, password);
+    const hashedPassword =
+      "$2b$05$8Z2PjCZj3ZK6Q5LFdAmneuJ2JLJOtJptVFHEPThjtebNEcOirEsgq";
+    const isValidPassword = validatePassword(password, hashedPassword);
     expect(isValidPassword).toBe(true);
     done();
   });
