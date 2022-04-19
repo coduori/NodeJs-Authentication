@@ -6,26 +6,25 @@ import User from "../../models/user.js";
 import AccessToken from "../../models/AccessToken.js";
 config();
 
-//ToDo: user express-validator to sanitize input
 const login = async (req, res) => {
   const { email, password: inputPassword } = req.body;
-  const user = await findUser(email);
-
-  if (!user) {
-    res.status(403).send({ message: "invalid username or password" });
-    return;
+  let user;
+  try {
+    user = await findUser(email);
+  } catch (error) {
+    return res.status(400).send({ error });
   }
   const isValidPassword = validatePassword(inputPassword, user.password);
-  if (!isValidPassword) {
-    res.status(403).send({ message: "invalid username or password" });
-    return;
-  }
   const tokens = [];
+  if (!isValidPassword) {
+    return res.status(400).send({ message: "invalid username or password" });
+  }
   if (isValidPassword) {
     const payload = {
       sub: `${user.firstName} ${user.surname}`,
       roles: user.roles,
     };
+
     const [accessToken, refreshToken] = createTokens(payload);
     tokens.push({ accessToken });
     tokens.push({ refreshToken });
@@ -58,9 +57,8 @@ const findUser = async email => {
     user = await User.findOne({ email: email });
   } catch {
     throw new Error("Database Error");
-  } finally {
-    return user;
   }
+  return user;
 };
 const createTokens = data => {
   const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET;
