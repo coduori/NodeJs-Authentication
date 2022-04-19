@@ -5,12 +5,9 @@ import jwt from "jsonwebtoken";
 import User from "../../models/user.js";
 import AccessToken from "../../models/AccessToken.js";
 config();
-<<<<<<< HEAD
 //@desc   login an existing user
 //@route  POST /auth/login
-=======
 
->>>>>>> modified token payload
 const login = async (req, res) => {
   const { email, password: inputPassword } = req.body;
   let user;
@@ -20,6 +17,7 @@ const login = async (req, res) => {
     return res.status(400).send({ error });
   }
   const isValidPassword = validatePassword(inputPassword, user.password);
+
   const tokens = [];
   if (!isValidPassword) {
     return res.status(400).send({ message: "invalid username or password" });
@@ -29,10 +27,6 @@ const login = async (req, res) => {
       sub: `${user.firstName} ${user.surname}`,
       roles: user.roles,
     };
-<<<<<<< HEAD
-
-=======
->>>>>>> modified token payload
     const [accessToken, refreshToken] = createTokens(payload);
     tokens.push({ accessToken });
     tokens.push({ refreshToken });
@@ -40,12 +34,7 @@ const login = async (req, res) => {
   try {
     await persistAccessToken(tokens[0].accessToken);
   } catch (error) {
-<<<<<<< HEAD
     return res.status(500).send({ message: "Could not persist token", error });
-=======
-    res.status(500).send({ message: "Could not persist token", error });
-    return;
->>>>>>> modified token payload
   }
   res.status(200).send({ tokens });
 };
@@ -66,11 +55,7 @@ const validatePassword = (inputPassword, validPassword) => {
 const findUser = async email => {
   let user;
   try {
-<<<<<<< HEAD
     user = await User.findOne("email: email");
-=======
-    user = await User.findOne({ email: email });
->>>>>>> modified token payload
   } catch {
     throw new Error("Database Error");
   }
