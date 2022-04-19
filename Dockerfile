@@ -1,12 +1,13 @@
 FROM node
 
-
 WORKDIR /app
 
-COPY . .
+COPY ./package.json .
 
 RUN npm install
 
-EXPOSE 3001
+COPY . .
+
+EXPOSE 80
 
 CMD ["node","index.js"]
