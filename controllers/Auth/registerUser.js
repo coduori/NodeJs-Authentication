@@ -1,5 +1,6 @@
 import bcrypt from "bcrypt";
 import User from "../../models/user.js";
+//ToDo: user express-validator to sanitize input
 const registerUser = async (req, res) => {
   const { email, password, firstName, surname, roles } = req.body;
   const isValidEmail = validateEmail(email);
