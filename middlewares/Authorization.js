@@ -3,6 +3,7 @@ import AccessToken from "../models/AccessToken.js";
 import { config } from "dotenv";
 config();
 const USERS = "/users";
+const REFRESH = "/refresh";
 const Authorization = (req, res, next) => {
   const requestedResource = req.originalUrl;
   const authorization = req.headers["authorization"] || "";

@@ -17,7 +17,6 @@ const login = async (req, res) => {
     return res.status(400).send({ error });
   }
   const isValidPassword = validatePassword(inputPassword, user.password);
-
   const tokens = [];
   if (!isValidPassword) {
     return res.status(400).send({ message: "invalid username or password" });
@@ -27,6 +26,7 @@ const login = async (req, res) => {
       sub: `${user.firstName} ${user.surname}`,
       roles: user.roles,
     };
+
     const [accessToken, refreshToken] = createTokens(payload);
     tokens.push({ accessToken });
     tokens.push({ refreshToken });
