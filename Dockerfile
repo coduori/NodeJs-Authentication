@@ -1,8 +1,8 @@
-FROM node:16.14.2
+FROM node
 
 WORKDIR /app
 
-COPY package.json .
+COPY ./package.json .
 
 RUN npm install
 
@@ -10,4 +10,4 @@ COPY . .
 
 EXPOSE 80
 
-CMD ["node", "server.js"]
+CMD ["node", "index.js"]

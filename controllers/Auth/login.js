@@ -7,6 +7,7 @@ import AccessToken from "../../models/AccessToken.js";
 config();
 //@desc   login an existing user
 //@route  POST /auth/login
+
 const login = async (req, res) => {
   const { email, password: inputPassword } = req.body;
   let user;
